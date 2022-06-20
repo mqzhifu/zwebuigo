@@ -1,0 +1,12 @@
+go.sum
+.idea/
+latest_log*
+config.yaml
+./zwebuigo
+./Zwebuigo
+node_modules
+package-lock.json
+vendor
+.DS_Store
+desktop.ini
+docs
