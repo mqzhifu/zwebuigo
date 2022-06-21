@@ -5,7 +5,7 @@ listeningPorts = ""
 testUnit = "go run test"
 build = "go build -ldflags  \"-X main.BuildGitVersion='#git_version#' -X main.BuildTime='#datetime#' \" -o #service_name#"
 #build = "go build -ldflags \"-X main.BuildGitVersion='#git_version#' -X 'main.BUILD_TIME=`#datetime#`' \" -o #service_name#"
-command="go version;go env -w GO111MODULE=on;go env -w GOPROXY=https://goproxy.cn,direct;go mod tidy;go mod download;go get -u github.com/swaggo/swag/cmd/swag;$HOME/go/bin/swag init;"
+command="go version;go env -w GO111MODULE=on;go env -w GOPROXY=https://goproxy.cn,direct;go get -u github.com/swaggo/swag/cmd/swag;$HOME/go/bin/swag init;go mod tidy;go mod download;"
 configTmpFileName="config.yaml.tmp"
 configFileName="config.yaml"
 
