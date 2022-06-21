@@ -1,3 +1,0 @@
-[github.com/flipped-aurora/gin-vue-admin/server]2022/06/21 - 11:43:33.118	[31merror[0m	/data/www/golang/src/zwebuigo/core/server.go:48	accept tcp [::]:8888: use of closed network connection
-[github.com/flipped-aurora/gin-vue-admin/server]2022/06/21 - 12:16:51.875	[31merror[0m	/var/root/go/pkg/mod/github.com/flipped-aurora/gin-vue-admin/server@v0.0.0-20220619135120-83e26c43e052/core/server.go:48	accept tcp [::]:8888: use of closed network connection
-[github.com/flipped-aurora/gin-vue-admin/server]2022/06/21 - 12:17:31.578	[31merror[0m	/var/root/go/pkg/mod/github.com/flipped-aurora/gin-vue-admin/server@v0.0.0-20220619135120-83e26c43e052/core/server.go:48	accept tcp [::]:8888: use of closed network connection

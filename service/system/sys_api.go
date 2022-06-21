@@ -35,17 +35,9 @@ func (apiService *ApiService) CreateApi(api system.SysApi) (err error) {
 //@return: err error
 
 func (apiService *ApiService) DeleteApi(api system.SysApi) (err error) {
-	var entity system.SysApi
-	err = global.GVA_DB.Where("id = ?", api.ID).First(&entity).Error // 根据id查询api记录
-	if errors.Is(err, gorm.ErrRecordNotFound) {                      // api记录不存在
-		return err
-	}
-	err = global.GVA_DB.Delete(&entity).Error
-	if err != nil {
-		return err
-	}
-	CasbinServiceApp.ClearCasbin(1, entity.Path, entity.Method)
-	return nil
+	err = global.GVA_DB.Delete(&api).Error
+	CasbinServiceApp.ClearCasbin(1, api.Path, api.Method)
+	return err
 }
 
 //@author: [piexlmax](https://github.com/piexlmax)

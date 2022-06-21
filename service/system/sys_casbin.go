@@ -2,8 +2,6 @@ package system
 
 import (
 	"errors"
-	"github.com/casbin/casbin/v2/model"
-	"go.uber.org/zap"
 	"sync"
 
 	"github.com/casbin/casbin/v2"
@@ -94,28 +92,7 @@ var (
 func (casbinService *CasbinService) Casbin() *casbin.SyncedEnforcer {
 	once.Do(func() {
 		a, _ := gormadapter.NewAdapterByDB(global.GVA_DB)
-		text := `
-		[request_definition]
-		r = sub, obj, act
-		
-		[policy_definition]
-		p = sub, obj, act
-		
-		[role_definition]
-		g = _, _
-		
-		[policy_effect]
-		e = some(where (p.eft == allow))
-		
-		[matchers]
-		m = r.sub == p.sub && keyMatch2(r.obj,p.obj) && r.act == p.act
-		`
-		m, err := model.NewModelFromString(text)
-		if err != nil {
-			zap.L().Error("字符串加载模型失败!", zap.Error(err))
-			return
-		}
-		syncedEnforcer, _ = casbin.NewSyncedEnforcer(m, a)
+		syncedEnforcer, _ = casbin.NewSyncedEnforcer(global.GVA_CONFIG.Casbin.ModelPath, a)
 	})
 	_ = syncedEnforcer.LoadPolicy()
 	return syncedEnforcer
