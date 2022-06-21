@@ -1,4 +1,4 @@
-module Zwebuigo
+module github.com/flipped-aurora/gin-vue-admin/server
 
 go 1.16
 
