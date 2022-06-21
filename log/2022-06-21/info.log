@@ -1,0 +1,5 @@
+[github.com/flipped-aurora/gin-vue-admin/server]2022/06/21 - 11:43:30.748	[34minfo[0m	/data/www/golang/src/zwebuigo/initialize/router.go:32	use middleware logger
+[github.com/flipped-aurora/gin-vue-admin/server]2022/06/21 - 11:43:30.748	[34minfo[0m	/data/www/golang/src/zwebuigo/initialize/router.go:36	use middleware cors
+[github.com/flipped-aurora/gin-vue-admin/server]2022/06/21 - 11:43:30.748	[34minfo[0m	/data/www/golang/src/zwebuigo/initialize/router.go:38	register swagger handler
+[github.com/flipped-aurora/gin-vue-admin/server]2022/06/21 - 11:43:30.750	[34minfo[0m	/data/www/golang/src/zwebuigo/initialize/router.go:80	router register success
+[github.com/flipped-aurora/gin-vue-admin/server]2022/06/21 - 11:43:30.750	[34minfo[0m	/data/www/golang/src/zwebuigo/core/server.go:36	server run success on 	{"address": ":8888"}
