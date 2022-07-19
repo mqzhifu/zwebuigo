@@ -4,6 +4,7 @@ import (
 	"errors"
 	"github.com/flipped-aurora/gin-vue-admin/server/global"
 	"go/token"
+	"strings"
 )
 
 // AutoCodeStruct 初始版本自动化代码工具
@@ -17,9 +18,16 @@ type AutoCodeStruct struct {
 	AutoCreateApiToSql bool     `json:"autoCreateApiToSql"` // 是否自动创建api
 	AutoMoveFile       bool     `json:"autoMoveFile"`       // 是否自动移动文件
 	Fields             []*Field `json:"fields,omitempty"`
+	HasTimer           bool
 	DictTypes          []string `json:"-"`
 	Package            string   `json:"package"`
 	PackageT           string   `json:"-"`
+	NeedValid          bool     `json:"-"`
+}
+
+func (a *AutoCodeStruct) Pretreatment() {
+	a.KeyWord()
+	a.SuffixTest()
 }
 
 // KeyWord 是go关键字的处理加上 _ ，防止编译报错
@@ -27,6 +35,14 @@ type AutoCodeStruct struct {
 func (a *AutoCodeStruct) KeyWord() {
 	if token.IsKeyword(a.Abbreviation) {
 		a.Abbreviation = a.Abbreviation + "_"
+	}
+}
+
+// SuffixTest 处理_test 后缀
+// Author [SliverHorn](https://github.com/SliverHorn)
+func (a *AutoCodeStruct) SuffixTest() {
+	if strings.HasSuffix(a.HumpPackageName, "test") {
+		a.HumpPackageName = a.HumpPackageName + "_"
 	}
 }
 
@@ -40,6 +56,9 @@ type Field struct {
 	ColumnName      string `json:"columnName"`      // 数据库字段
 	FieldSearchType string `json:"fieldSearchType"` // 搜索条件
 	DictType        string `json:"dictType"`        // 字典
+	Require         bool   `json:"require"`         // 是否必填
+	ErrorText       string `json:"errorText"`       // 校验失败文字
+	Clearable       bool   `json:"clearable"`       // 是否可清空
 }
 
 var AutoMoveErr error = errors.New("创建代码成功并移动文件成功")

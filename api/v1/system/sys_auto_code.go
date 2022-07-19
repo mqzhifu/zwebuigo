@@ -3,16 +3,15 @@ package system
 import (
 	"errors"
 	"fmt"
+	"github.com/flipped-aurora/gin-vue-admin/server/global"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
+	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
+	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 	"net/url"
 	"os"
 	"strings"
-
-	"github.com/flipped-aurora/gin-vue-admin/server/global"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/common/response"
-	"github.com/flipped-aurora/gin-vue-admin/server/model/system"
-	"github.com/flipped-aurora/gin-vue-admin/server/utils"
 
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
@@ -38,7 +37,7 @@ func (autoApi *AutoCodeApi) PreviewTemp(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	a.KeyWord() // 处理go关键字
+	a.Pretreatment() // 处理go关键字
 	a.PackageT = caser.String(a.Package)
 	autoCode, err := autoCodeService.PreviewTemp(a)
 	if err != nil {
@@ -65,7 +64,7 @@ func (autoApi *AutoCodeApi) CreateTemp(c *gin.Context) {
 		response.FailWithMessage(err.Error(), c)
 		return
 	}
-	a.KeyWord() // 处理go关键字
+	a.Pretreatment()
 	var apiIds []uint
 	if a.AutoCreateApiToSql {
 		if ids, err := autoCodeService.AutoCreateApi(&a); err != nil {
@@ -238,5 +237,36 @@ func (autoApi *AutoCodeApi) AutoPlug(c *gin.Context) {
 		response.FailWithMessage("预览失败", c)
 	} else {
 		response.Ok(c)
+	}
+}
+
+func (autoApi *AutoCodeApi) InstallPlugin(c *gin.Context) {
+	header, err := c.FormFile("plug")
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	web, server, err := autoCodeService.InstallPlugin(header)
+	webStr := "web插件安装成功"
+	serverStr := "server插件安装成功"
+	if web == -1 {
+		webStr = "web端插件未成功安装，请按照文档自行解压安装，如果为纯后端插件请忽略此条提示"
+	}
+	if server == -1 {
+		serverStr = "server端插件未成功安装，请按照文档自行解压安装，如果为纯前端插件请忽略此条提示"
+	}
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	} else {
+		response.OkWithData([]interface{}{
+			gin.H{
+				"code": web,
+				"msg":  webStr,
+			},
+			gin.H{
+				"code": server,
+				"msg":  serverStr,
+			}}, c)
 	}
 }

@@ -1,16 +1,13 @@
 #当前项目的CICD配置信息
 [system]
-startup = "#master_path#/#service_name#"
+startup = "npm run serve #env#"
 listeningPorts = ""
-testUnit = "go run test"
-build = "go build -ldflags  \"-X main.BuildGitVersion='#git_version#' -X main.BuildTime='#datetime#' \" -o #service_name#"
+testUnit = "npm run test"
+build = "node -v;npm -v;npm run build"
 #build = "go build -ldflags \"-X main.BuildGitVersion='#git_version#' -X 'main.BUILD_TIME=`#datetime#`' \" -o #service_name#"
-command="go version;go env -w GO111MODULE=on;go env -w GOPROXY=https://goproxy.cn,direct;go get -u github.com/swaggo/swag/cmd/swag;$HOME/go/bin/swag init;go mod tidy;go mod download;"
-configTmpFileName="config.yaml.tmp"
-configFileName="config.yaml"
+command="npm install --unsafe-perm=true --allow-root --registry=https://registry.npm.taobao.org "
+configTmpFileName=".env.production.tmp"
+configFileName=".env.production"
 
 [depend]
-go="1.16"
-mysql="5.5"
-redis="3.0"
-
+noce="1.14.1"
