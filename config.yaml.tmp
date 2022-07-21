@@ -117,7 +117,7 @@ mysql-business:
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: seed
   username: "#mysql_user#"
-  password: "#mysql_ps#
+  password: "#mysql_ps#"
   max-idle-conns: 10
   max-open-conns: 100
   log-mode: error
