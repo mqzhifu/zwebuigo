@@ -116,7 +116,7 @@ mysql-business:
   port: "#mysql_port#"
   config: charset=utf8mb4&parseTime=True&loc=Local
   db-name: seed
-  username: "#mysql_user#
+  username: "#mysql_user#"
   password: "#mysql_ps#
   max-idle-conns: 10
   max-open-conns: 100
