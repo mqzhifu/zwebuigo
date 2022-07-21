@@ -67,17 +67,7 @@ mysql:
   max-open-conns: 100
   log-mode: ""
   log-zap: false
-mysql-business:
-  path: 'rm-8vb10pi2gz9rma8p8vo.mysql.zhangbei.rds.aliyuncs.com'
-  port: "3306"
-  config: charset=utf8mb4&parseTime=True&loc=Local
-  db-name: seed
-  username: superman
-  password: ckarCKAR789
-  max-idle-conns: 10
-  max-open-conns: 100
-  log-mode: error
-  log-zap: false
+
 
 # pgsql connect configuration
 # 未初始化之前请勿手动修改数据库信息！！！如果一定要手动初始化请看（https://gin-vue-admin.com/docs/first_master）
